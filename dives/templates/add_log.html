@@ -1,0 +1,42 @@
+{% load static %}
+{% block content %}
+{% include "header.html" %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('../../../static/img/add-log.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            {% if is_edit %}
+            <h1>Edit Log</h1>
+            {% else %}
+            <h1>New Log</h1>
+            <span class="subheading">Log New Dive</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <form id="contactForm" action="{% url 'add_log' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.media }}
+          <table>
+          {{ form.as_table }}
+            <tr>
+              <td></td>
+              <td><input type="submit" class="btn btn-primary" value="Save Log"></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% include "footer.html" %}
+{% endblock %}

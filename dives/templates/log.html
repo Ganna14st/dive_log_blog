@@ -1,0 +1,75 @@
+{% include "header.html" %}
+{% load static %}
+
+  <!-- Page Header -->
+<header class="masthead" style="background-image: url('../../static/img/log.jpg')" xmlns="http://www.w3.org/1999/html">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+              <table>
+                  <tr>
+                      <td><h5>Dive number</h5></td>
+                      <td><h5>{{log.dive_number }}</h5></td>
+                  </tr>
+                  <tr>
+                      <td><h5>Dive date</h5></td>
+                      <td><h5>{{log.date}}</h5></td>
+                  </tr>
+                  <tr>
+                      <td><h5>Dive time</h5></td>
+                      <td><h5>{{log.time}}</h5></td>
+                  </tr>
+                  <tr>
+                      <td><h5>Location</h5></td>
+                      <td><h5>{{log.country}}, {{log.dive_site}}</h5></td>
+                  </tr>
+                  <tr>
+                      <td><h5>Dive Team</h5></td>
+                      <td><h5>Guide: {{log.guide}}, dive buddy: {{log.buddy}}</h5></td>
+                  </tr>
+                  <tr>
+                      <td><h5>Dive Center</h5></td>
+                      <td><h5>{{log.dive_center}}</h5></td>
+                  </tr>
+                  <tr>
+                      <td><h5>Dive duration</h5></td>
+                      <td><h5>{{log.duration}}</h5></td>
+                  </tr>
+                  <tr>
+                      <td><h5>Depth</h5></td>
+                      <td><h5>{{log.depth}} meters</h5></td>
+                  </tr>
+                  <tr>
+                      <td><h5>On Nitrox</h5></td>
+                      <td><h5>{{log.nitrox}}</h5></td>
+                  </tr>
+                  <tr>
+                      <td><h5>Air left</h5></td>
+                      <td><h5>{{log.air_left}}</h5></td>
+                  </tr>
+                  <tr>
+                      <td><h5>Notes</h5></td>
+                      <td><h5>{{log.notes | safe | linebreaks}}</h5></td>
+                  </tr>
+              </table>
+            <span class="meta">Posted by <a href="#">{{log.author}}</a> on {{log.log_date}}</span>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+</header>
+
+              {% if user == log.author or user.is_staff %}
+
+    <div class="clearfix">
+        <a class="btn btn-primary float-right" href="">Edit Log</a>
+        <a class="btn btn-primary float-right" href="">Delete Log</a>
+    </div>
+    {% endif %}
+    <hr>
+
+{% include "footer.html" %}

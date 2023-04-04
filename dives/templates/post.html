@@ -1,0 +1,78 @@
+{% include "header.html" %}
+{% load static %}
+
+  <!-- Page Header -->
+<header class="masthead" style="background-image: url(../../media/{{ post.pic }})" xmlns="http://www.w3.org/1999/html">
+    <div class="overlay">
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>{{post.title}}</h1>
+            <h2 class="subheading">{{post.subtitle}}</h2>
+            <span class="meta">Posted by <a href="#">{{post.author}}</a> on {{post.date}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+</header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+        <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <p>{{ post.body | safe | linebreaks }}</p>
+            <hr>
+
+            {% if user == post.author or user.is_staff %}
+            <div class="clearfix">
+            <a class="btn btn-primary float-right" href="">Edit Post</a>
+            <a class="btn btn-primary float-right" href="">Delete Post</a>
+            </div>
+            {% endif %}
+            <hr>
+
+            <!-- Comments view section -->
+            <div class="container">
+        <div class="row">
+
+        {% for comment in all_comments %}
+        <div class="post-preview">
+            <h4 class="post-meta">{{ comment.body | safe | linebreaks}}</h4>
+            <p class="post-meta">
+                Posted by
+                <a href="#">{{comment.author}}</a>
+                on {{comment.date}}
+            </p>
+        {% endfor %}
+        </div>
+
+        </div>
+            <!-- End of comments view section -->
+
+
+
+            <!-- Adding new comments section -->
+                {% if user.is_authenticated %}
+                <div class="post-preview">
+                    <form class="control-group" id="contactForm" action="" method="post">
+                    {% csrf_token %}
+                        {{ form.media }}
+                    {{ form.as_p }}
+                    <input type="submit" class="btn btn-primary" value="Add Comment">
+                    </form>
+                </div>
+            </div>
+            </div>
+                {% endif %}
+
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </article>
+  <hr>
+{% include "footer.html" %}

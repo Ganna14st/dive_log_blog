@@ -1,0 +1,68 @@
+{% include "header.html" %}
+{% load static %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('../static/img/logbook.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Log Book</h1>
+            <span class="subheading">All Your Dives are Here</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class='post-subtitle col-lg-8 col-md-10 mx-auto'>
+      {% if messages %}
+      {% for message in messages %}
+      <p>{{ message }}</p>
+      {% endfor %}
+      {% endif %}
+    </div>
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+          {% for log in logs %}
+          <div class="post-preview">
+            <a href="{% url 'show_log' log_id=log.id %}">
+
+              <h2 class="post-subtitle">
+              Dive # {{log.dive_number }}
+              at {{log.dive_site}}
+              </h2>
+
+              <h3 class="post-subtitle"> in {{log.country}}</h3>
+            </a>
+
+          <p class="post-meta">
+            Posted by
+            <a href="#">{{log.author}}</a>
+            on {{log.date}}
+
+            {% if user.is_staff or log.author == user %}
+            <a href="{%  url 'edit_log' log_id=log.id %}">🖋</a>
+            <a href="{%  url 'delete_log' log_id=log.id %}">✘</a>
+            {% endif %}
+          </p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+        <hr>
+
+
+        <!-- New Log -->
+        <div class="clearfix text-center">
+          <a class="btn btn-primary" href="new_log/">Log New Dive</a>
+        </div>
+      </div>
+  </div>
+
+  <hr>
+
+{% include "footer.html" %}
